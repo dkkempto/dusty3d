@@ -28,7 +28,7 @@ public class Sphere implements IEntity {
 
     @Override
     public void update() {
-        translate(10f, 0f, 0f);
+        translate(new Vector(10f, 0f, 0f));
     }
 
     @Override
@@ -46,18 +46,13 @@ public class Sphere implements IEntity {
     }
 
     @Override
-    public void translate(float dx, float dy, float dz) {
-        origin = origin.plus(new Vector(dx, dy, dz));
-    }
-
-    @Override
     public void translate(Vector v) {
         origin = origin.plus(v);
     }
 
     @Override
-    public void move(float newX, float newY, float newZ) {
-        origin = new Vector(newX, newY, newZ);
+    public void moveTo(Vector p) {
+        origin = p;
     }
 
     @Override

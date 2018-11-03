@@ -8,7 +8,6 @@ public interface IEntity extends IIntersectable {
     void update();
     void rotate(Rotation r);
     void rotate(Rotation r, Vector o);
-    void translate(float dx, float dy, float dz);
     void translate(Vector v);
-    void move(float newX, float newY, float newZ);
+    void moveTo(Vector p);
 }

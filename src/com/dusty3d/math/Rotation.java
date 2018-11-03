@@ -1,5 +1,8 @@
 package com.dusty3d.math;
 
+/**
+ * I'm now questioning if this was the best way to structure this class.
+ */
 public class Rotation {
     private Matrix m;
 

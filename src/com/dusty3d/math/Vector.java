@@ -74,4 +74,18 @@ public class Vector {
     public String toString() {
         return "<"+x+", "+y+", "+z+">";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == this) return true;
+        if(!(o instanceof Vector)) return false;
+
+        Vector that = (Vector)o;
+
+        if (this.x == that.x && this.y == that.y && this.z == that.z) {
+            return true;
+        }
+
+        return false;
+    }
 }

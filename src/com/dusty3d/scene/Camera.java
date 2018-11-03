@@ -69,19 +69,13 @@ public class Camera implements IEntity {
     }
 
     @Override
-    public void translate(float dx, float dy, float dz) {
-        loc = loc.plus(new Vector(dx, dy, dz));
-        calculateOtherDirectionVectors();
-    }
-
-    @Override
     public void translate(Vector v) {
         loc = loc.plus(v);
         calculateOtherDirectionVectors();
     }
 
     @Override
-    public void move(float newX, float newY, float newZ) {
+    public void moveTo(Vector p) {
 
     }
 
