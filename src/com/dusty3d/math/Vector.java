@@ -82,10 +82,7 @@ public class Vector {
 
         Vector that = (Vector)o;
 
-        if (this.x == that.x && this.y == that.y && this.z == that.z) {
-            return true;
-        }
+        return this.x == that.x && this.y == that.y && this.z == that.z;
 
-        return false;
     }
 }

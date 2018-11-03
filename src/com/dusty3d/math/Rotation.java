@@ -41,6 +41,36 @@ public class Rotation {
         return new Rotation(newM);
     }
 
+    public Rotation aboutAxis(Vector axis, float theta) {
+        //Thank you wikipedia for blessing me with this beautiful rotation matrix
+        float u = axis.getX();
+        float v = axis.getY();
+        float w = axis.getZ();
+        float cosTheta = (float)Math.cos(theta);
+        float sinTheta = (float)Math.sin(theta);
+        float d = 1 - cosTheta;
+
+        Matrix newM = m.multiply(new Matrix(new float[][] {
+                {
+                    u*u*d + cosTheta,
+                    v*u*d - w*sinTheta,
+                    w*u*d + v*sinTheta
+                },
+                {
+                    u*v*d + w*sinTheta,
+                    v*v*d + cosTheta,
+                    w*v*d - u*sinTheta
+                },
+                {
+                    u*w*d - v*sinTheta,
+                    v*w*d + u*sinTheta,
+                    w*w*d + cosTheta
+                }
+        }));
+
+        return new Rotation(newM);
+    }
+
     public Vector apply(Vector v){
         return m.multiply(v);
     }

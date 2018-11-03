@@ -3,13 +3,14 @@ package com.dusty3d.main;
 import com.dusty3d.loader.IFileSelectedListener;
 import com.dusty3d.loader.ILoader;
 import com.dusty3d.loader.LoaderFactory;
+import com.dusty3d.scene.IEntity;
 import com.dusty3d.scene.IRenderer;
 import com.dusty3d.scene.Scene;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.io.File;
 
 public class Screen extends JPanel implements Runnable, IFileSelectedListener {
@@ -35,6 +36,9 @@ public class Screen extends JPanel implements Runnable, IFileSelectedListener {
         scene = new Scene();
         thread = new Thread(this);
         thread.start();
+
+        setFocusable(true);
+        addKeyListener(scene);
     }
 
     @Override
@@ -69,7 +73,9 @@ public class Screen extends JPanel implements Runnable, IFileSelectedListener {
             if(delayms > 0) {
                 try {
                     Thread.sleep(delayms);
-                } catch (InterruptedException ie) { }
+                } catch (InterruptedException ie) {
+                    //Don't really know what to do if this happens
+                }
             }
         }
     }
@@ -77,15 +83,14 @@ public class Screen extends JPanel implements Runnable, IFileSelectedListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        clear(g);
         drawImageToScreen(g);
+        clear(g);
     }
 
     private void clear(Graphics g) {
-        Color old = g.getColor();
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(old);
+        Graphics g2 = bi.getGraphics();
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0,0,bi.getWidth(),bi.getHeight());
     }
 
     private void drawImageToScreen(Graphics g) {
@@ -111,6 +116,7 @@ public class Screen extends JPanel implements Runnable, IFileSelectedListener {
     @Override
     public void fileSelected(File file) {
         ILoader loader = LoaderFactory.GetLoader(file);
-        loader.load();
+        List<IEntity> res = loader.load();
+        scene.setEntities(res);
     }
 }

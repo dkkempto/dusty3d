@@ -19,12 +19,12 @@ class SphereTest {
         Ray rightBottom = new Ray(new Vector(), new Vector(0.86602545f, 1.0f, -0.6495191f));
         Ray rightTop = new Ray(new Vector(), new Vector(0.86602545f, 1.0f, 0.6495191f));
 
-        assertEquals(true, s.getIntersection(r).didHit());
-        assertEquals(false, s.getIntersection(miss).didHit());
+        assertTrue(s.getIntersection(r).didHit());
+        assertFalse(s.getIntersection(miss).didHit());
 
-        assertEquals(false, s.getIntersection(leftBottom).didHit());
-        assertEquals(false, s.getIntersection(leftTop).didHit());
-        assertEquals(false, s.getIntersection(rightBottom).didHit());
-        assertEquals(false, s.getIntersection(rightTop).didHit());
+        assertFalse(s.getIntersection(leftBottom).didHit());
+        assertFalse(s.getIntersection(leftTop).didHit());
+        assertFalse(s.getIntersection(rightBottom).didHit());
+        assertFalse(s.getIntersection(rightTop).didHit());
     }
 }

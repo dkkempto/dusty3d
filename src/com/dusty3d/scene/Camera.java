@@ -7,8 +7,8 @@ import com.dusty3d.math.Rotation;
 import com.dusty3d.math.Vector;
 
 public class Camera implements IEntity {
-    private static Vector GLOBAL_UP = new Vector(0, 0, 1);
-    public static final float NEAR_PLANE_DISTANCE = 1f;
+    public static final Vector GLOBAL_UP = new Vector(0, 0, 1);
+    private static final float NEAR_PLANE_DISTANCE = 1f;
     private static final float FOV = (float)Math.PI / 3.0f;
     private static final float ASPECT_RATIO = (float)Screen.WIDTH / (float)Screen.HEIGHT;
 
@@ -41,6 +41,11 @@ public class Camera implements IEntity {
                 .plus(up.scale(ty));
 
         return new Ray(loc, rayDir);
+    }
+
+    @Override
+    public Vector getNormal(float u, float v) {
+        return null;
     }
 
     @Override
@@ -88,4 +93,21 @@ public class Camera implements IEntity {
     public boolean doesIntersect(Ray r) {
         return false;
     }
+
+    public Vector getLoc() {
+        return loc;
+    }
+
+    public Vector getDir() {
+        return dir;
+    }
+
+    public Vector getRight() {
+        return right;
+    }
+
+    public Vector getUp() {
+        return up;
+    }
+
 }

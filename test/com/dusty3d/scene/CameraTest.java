@@ -3,8 +3,6 @@ package com.dusty3d.scene;
 import com.dusty3d.math.Ray;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class CameraTest {
 
     @Test

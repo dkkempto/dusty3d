@@ -10,6 +10,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class TriangleTest {
 
     @Test
+    void getNormal() {
+        Triangle t = new Triangle(
+                new Vector(1,1,1),
+                new Vector(1,-1,1),
+                new Vector(1,0,-1)
+        );
+
+        Vector n = t.getNormal(0,0);
+        assertEquals(new Vector(1,0,0), n);
+    }
+
+    @Test
     void rotate() {
     }
 
@@ -55,7 +67,7 @@ class TriangleTest {
         );
 
         Intersection i = t.getIntersection(r);
-        assertEquals(true, i.didHit());
+        assertTrue(i.didHit());
         assertEquals(new Vector(10.121951f, 6.121951f, 3.9756098f), i.getIntersect());
     }
 

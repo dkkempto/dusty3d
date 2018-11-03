@@ -3,7 +3,7 @@ package com.dusty3d.loader;
 import java.io.File;
 
 public class LoaderFactory {
-    public static final String FILE_TYPE_OBJ = "obj";
+    private static final String FILE_TYPE_OBJ = "obj";
 
     public ILoader GetLoader(String path) {
         return GetLoader(new File(path));

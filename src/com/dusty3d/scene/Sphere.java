@@ -27,21 +27,26 @@ public class Sphere implements IEntity {
     }
 
     @Override
+    public Vector getNormal(float u, float v) {
+        //TODO: Implement this. If I can figure out how to go from u,v to cartesian, it should be simple
+        //Just take the cartesian and subtract from the sphere's center, normalize it and that's your normal.
+        return new Vector();
+    }
+
+    @Override
     public void update() {
-        translate(new Vector(10f, 0f, 0f));
+        rotate(new Rotation().rotateX(0.05f));
     }
 
     @Override
     public void rotate(Rotation r) {
-        translate(origin.negative());
         origin = r.apply(origin);
-        translate(origin);
     }
 
     @Override
     public void rotate(Rotation r, Vector o) {
         translate(o.negative());
-        origin = r.apply(origin);
+        rotate(r);
         translate(o);
     }
 
@@ -78,9 +83,19 @@ public class Sphere implements IEntity {
         float t1 = e + f;
         float t2 = e - f;
 
-        Vector i = r.at(t1);
+        float t = t1;
 
-        return new Intersection(this, i, t1, true);
+        if(t < 0) {
+            if (t2 < 0) {
+                return new Intersection(false);
+            } else {
+                t = t2;
+            }
+        }
+
+        Vector i = r.at(t);
+
+        return new Intersection(this, i, t, true);
     }
 
     @Override

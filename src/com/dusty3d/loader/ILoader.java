@@ -5,5 +5,5 @@ import com.dusty3d.scene.IEntity;
 import java.util.List;
 
 public interface ILoader {
-    public List<IEntity> load();
+    List<IEntity> load();
 }

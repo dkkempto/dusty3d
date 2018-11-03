@@ -5,19 +5,11 @@ import com.dusty3d.math.Ray;
 import com.dusty3d.math.Rotation;
 import com.dusty3d.math.Vector;
 
-import java.util.List;
-
-public class Mesh implements IEntity {
-
-    private List<Triangle> triangles;
-
-    public Mesh(List<Triangle> triangles) {
-        this.triangles = triangles;
-    }
+public class Plane implements IEntity {
 
     @Override
     public Vector getNormal(float u, float v) {
-        return null;
+        return new Vector();
     }
 
     @Override

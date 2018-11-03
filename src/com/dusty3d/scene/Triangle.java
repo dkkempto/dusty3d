@@ -6,8 +6,6 @@ import com.dusty3d.math.Rotation;
 import com.dusty3d.math.Vector;
 
 public class Triangle implements IEntity {
-    /** Used in calculating the intersection of a triangle with a ray */
-    private final float EPSILON = 0.0000001f;
 
     private Vector p0;
     private Vector p1;
@@ -24,15 +22,21 @@ public class Triangle implements IEntity {
     }
 
     @Override
-    public void update() {
+    public Vector getNormal(float u, float v) {
+        return p1.minus(p0).cross(p2.minus(p0)).normal();
+    }
 
+    @Override
+    public void update() {
+//        rotate(new Rotation().rotateZ(0.1f));
+//        translate(new Vector(-0.1f,0.1f,0));
     }
 
     @Override
     public void rotate(Rotation r) {
-        r.apply(p0);
-        r.apply(p1);
-        r.apply(p2);
+        p0 = r.apply(p0);
+        p1 = r.apply(p1);
+        p2 = r.apply(p2);
     }
 
     @Override
@@ -63,6 +67,7 @@ public class Triangle implements IEntity {
         Vector edge2 = p2.minus(p0);
         Vector h = r.getDir().cross(edge2);
         float a = edge1.dot(h);
+        float EPSILON = 0.0000001f;
         if(a > -EPSILON && a < EPSILON)
             return new Intersection(false);
 
@@ -100,5 +105,15 @@ public class Triangle implements IEntity {
 
     public Vector getP2() {
         return p2;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Triangle{");
+        sb.append("p0=").append(p0);
+        sb.append(", p1=").append(p1);
+        sb.append(", p2=").append(p2);
+        sb.append('}');
+        return sb.toString();
     }
 }
