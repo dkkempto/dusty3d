@@ -35,7 +35,7 @@ public class Sphere implements IEntity {
 
     @Override
     public void update() {
-        rotate(new Rotation().rotateX(0.05f));
+//        rotate(new Rotation().rotateX(0.05f));
     }
 
     @Override
@@ -94,12 +94,10 @@ public class Sphere implements IEntity {
         }
 
         Vector i = r.at(t);
+        Vector n = i.minus(origin).normal();
+        float u = (float)Math.atan2(n.getX(), n.getY()) / (2 * (float)Math.PI) + 0.5f;
+        float v = n.getZ() * 0.5f + 0.5f;
 
-        return new Intersection(this, i, t, true);
-    }
-
-    @Override
-    public boolean doesIntersect(Ray r) {
-        return false;
+        return new Intersection(this, i, n, t, u, v, true);
     }
 }

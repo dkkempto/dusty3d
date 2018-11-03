@@ -6,18 +6,20 @@ public class Intersection {
      */
     private IIntersectable obj;
     private Vector intersect;
+    private Vector normal;
     private boolean hit;
     private float t;
     private float u;
     private float v;
 
-    public Intersection(IIntersectable obj, Vector intersect, float t, boolean hit) {
-        this(obj, intersect, t, 0,0, hit);
+    public Intersection(IIntersectable obj, Vector intersect, Vector normal, float t, boolean hit) {
+        this(obj, intersect, normal, t, 0,0, hit);
     }
 
-    public Intersection(IIntersectable obj, Vector intersect, float t, float u, float v, boolean hit) {
+    public Intersection(IIntersectable obj, Vector intersect, Vector normal, float t, float u, float v, boolean hit) {
         this.obj = obj;
         this.intersect = intersect;
+        this.normal = normal;
         this.t = t;
         this.u = u;
         this.v = v;

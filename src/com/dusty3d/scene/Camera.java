@@ -89,11 +89,6 @@ public class Camera implements IEntity {
         return null;
     }
 
-    @Override
-    public boolean doesIntersect(Ray r) {
-        return false;
-    }
-
     public Vector getLoc() {
         return loc;
     }

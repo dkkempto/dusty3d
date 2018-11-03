@@ -5,8 +5,11 @@ import com.dusty3d.math.Ray;
 import com.dusty3d.math.Rotation;
 import com.dusty3d.math.Vector;
 
-public class Triangle implements IEntity {
+import java.util.ArrayList;
 
+public class Triangle implements IEntity, IBound {
+
+    private BoundingBox bb;
     private Vector p0;
     private Vector p1;
     private Vector p2;
@@ -19,6 +22,7 @@ public class Triangle implements IEntity {
         this.p0 = p1;
         this.p1 = p2;
         this.p2 = p3;
+        bb = new BoundingBox(this);
     }
 
     @Override
@@ -84,15 +88,21 @@ public class Triangle implements IEntity {
 
         if(t > EPSILON) {
             Vector intersect = r.at(t);
-            return new Intersection(this, intersect, t, u, v, true);
+            Vector n = h.normal();
+            return new Intersection(this, intersect, n, t, u, v, true);
         }
 
         return new Intersection(false);
     }
 
     @Override
-    public boolean doesIntersect(Ray r) {
-        return false;
+    public IEntity getBoundingBox() {
+        return bb;
+    }
+
+    @Override
+    public boolean intersectsBoundingBox(Ray r) {
+        return bb.doesIntersect(r);
     }
 
     public Vector getP0() {

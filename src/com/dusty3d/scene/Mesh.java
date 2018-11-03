@@ -7,12 +7,15 @@ import com.dusty3d.math.Vector;
 
 import java.util.List;
 
-public class Mesh implements IEntity {
+public class Mesh implements IEntity, IBound {
+
+    private BoundingBox bb;
 
     private List<Triangle> triangles;
 
     public Mesh(List<Triangle> triangles) {
         this.triangles = triangles;
+        bb = new BoundingBox(triangles);
     }
 
     @Override
@@ -46,12 +49,18 @@ public class Mesh implements IEntity {
     }
 
     @Override
+    public IEntity getBoundingBox() {
+        return bb;
+    }
+
+    @Override
+    public boolean intersectsBoundingBox(Ray r) {
+        return false;
+    }
+
+    @Override
     public Intersection getIntersection(Ray r) {
         return null;
     }
 
-    @Override
-    public boolean doesIntersect(Ray r) {
-        return false;
-    }
 }

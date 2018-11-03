@@ -41,9 +41,4 @@ public class Plane implements IEntity {
     public Intersection getIntersection(Ray r) {
         return null;
     }
-
-    @Override
-    public boolean doesIntersect(Ray r) {
-        return false;
-    }
 }
