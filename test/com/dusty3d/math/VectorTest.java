@@ -52,4 +52,13 @@ class VectorTest {
         assertEquals(6, res.getY());
         assertEquals(-3, res.getZ());
     }
+
+    @Test
+    void normal() {
+        Vector v1 = new Vector(5, 0, 0);
+        Vector res = v1.normal();
+        assertEquals(1, res.getX());
+        assertEquals(0, res.getY());
+        assertEquals(0, res.getZ());
+    }
 }

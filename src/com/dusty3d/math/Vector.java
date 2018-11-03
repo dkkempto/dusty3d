@@ -32,6 +32,8 @@ public class Vector {
         return new Vector( x * s, y*s, z*s);
     }
 
+    public Vector negative() { return new Vector(-x, -y, -z); }
+
     public float dot(Vector v) {
         return x * v.x + y * v.y + z * v.z;
     }
@@ -50,32 +52,26 @@ public class Vector {
 
     public Vector normal() {
         float l = length();
+
+        if(l == 0) return new Vector();
+
         return new Vector( x / l, y / l, z / l);
     }
 
-
-
     public float getX() {
         return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
     }
 
     public float getY() {
         return y;
     }
 
-    public void setY(float y) {
-        this.y = y;
-    }
-
     public float getZ() {
         return z;
     }
 
-    public void setZ(float z) {
-        this.z = z;
+    @Override
+    public String toString() {
+        return "<"+x+", "+y+", "+z+">";
     }
 }
