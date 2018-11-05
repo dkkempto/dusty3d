@@ -56,11 +56,6 @@ public class BoundingBox implements IEntity {
     }
 
     @Override
-    public Vector getNormal(float u, float v) {
-        return null;
-    }
-
-    @Override
     public void update() {
 
     }
@@ -91,6 +86,53 @@ public class BoundingBox implements IEntity {
     }
 
     public boolean doesIntersect(Ray r) {
-        return false;
+        float tmin = (min.getX() - r.getOrigin().getX()) / r.getDir().getX();
+        float tmax = (max.getX() - r.getOrigin().getX()) / r.getDir().getX();
+
+        if(tmin > tmax) {
+            float tmp = tmax;
+            tmax = tmin;
+            tmin = tmp;
+        }
+
+        float tymin = (min.getY() - r.getOrigin().getY()) / r.getDir().getY();
+        float tymax = (max.getY() - r.getOrigin().getY()) / r.getDir().getY();
+
+        if(tymin > tymax) {
+            float tmp = tymax;
+            tmax = tmin;
+            tmin = tmp;
+        }
+
+        if((tmin > tymax) || (tymin > tmax)) return false;
+
+        if(tymin > tmin) tmin = tymin;
+
+        if(tymax < tmax) tmax = tymax;
+
+        float tzmin = (min.getZ() - r.getOrigin().getZ()) / r.getDir().getZ();
+        float tzmax = (max.getZ() - r.getOrigin().getZ()) / r.getDir().getZ();
+
+        if(tzmin > tzmax) {
+            float tmp = tzmax;
+            tzmax = tzmin;
+            tzmin = tmp;
+        }
+
+        if((tmin > tzmax) || (tzmin > tmax)) return false;
+
+        if(tzmin > tmin) tmin = tzmin;
+
+        if(tzmax < tmax) tmax = tzmax;
+
+        return true;
+    }
+
+    public Vector getMin() {
+        return min;
+    }
+
+    public Vector getMax() {
+        return max;
     }
 }

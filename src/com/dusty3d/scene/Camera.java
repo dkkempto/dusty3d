@@ -44,11 +44,6 @@ public class Camera implements IEntity {
     }
 
     @Override
-    public Vector getNormal(float u, float v) {
-        return null;
-    }
-
-    @Override
     public void update() {
         //rotate(new Rotation().rotateZ((float)Math.PI/80));
         //translate(new Vector(0f, 0.1f, 0f));

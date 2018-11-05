@@ -46,6 +46,14 @@ public class Vector {
         );
     }
 
+    public Vector inverse() {
+        return new Vector(
+                1/x,
+                1/y,
+                1/z
+        );
+    }
+
     public float length() {
         return (float)Math.sqrt(x*x + y*y + z*z);
     }

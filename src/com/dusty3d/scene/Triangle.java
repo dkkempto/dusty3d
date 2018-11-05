@@ -6,6 +6,8 @@ import com.dusty3d.math.Rotation;
 import com.dusty3d.math.Vector;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.function.Function;
 
 public class Triangle implements IEntity, IBound {
 
@@ -23,11 +25,6 @@ public class Triangle implements IEntity, IBound {
         this.p1 = p2;
         this.p2 = p3;
         bb = new BoundingBox(this);
-    }
-
-    @Override
-    public Vector getNormal(float u, float v) {
-        return p1.minus(p0).cross(p2.minus(p0)).normal();
     }
 
     @Override
@@ -55,6 +52,7 @@ public class Triangle implements IEntity, IBound {
         p0 = p0.plus(v);
         p1 = p1.plus(v);
         p2 = p2.plus(v);
+        bb.translate(v);
     }
 
     @Override
@@ -88,7 +86,7 @@ public class Triangle implements IEntity, IBound {
 
         if(t > EPSILON) {
             Vector intersect = r.at(t);
-            Vector n = h.normal();
+            Vector n = edge1.cross(edge2);
             return new Intersection(this, intersect, n, t, u, v, true);
         }
 
@@ -126,4 +124,25 @@ public class Triangle implements IEntity, IBound {
         sb.append('}');
         return sb.toString();
     }
+
+    public static Comparator<Triangle> XAxisComparator = (t1, t2) -> {
+      float res = t1.bb.getMin().getX() - t2.bb.getMin().getX();
+      if(res < 0) return -1;
+      if(res > 0) return 1;
+      return 0;
+    };
+
+    public static Comparator<Triangle> YAxisComparator = (t1, t2) -> {
+        float res = t1.bb.getMin().getY() - t2.bb.getMin().getY();
+        if (res < 0) return -1;
+        if (res > 0) return 1;
+        return 0;
+    };
+
+    public static Comparator<Triangle> ZAxisComparator = (t1, t2) -> {
+        float res = t1.bb.getMin().getZ() - t2.bb.getMin().getZ();
+        if(res < 0) return -1;
+        if(res > 0) return 1;
+        return 0;
+    };
 }

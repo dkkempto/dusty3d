@@ -15,16 +15,30 @@ public class RayTracer implements IRenderer {
                 List<IEntity> entityList = s.getEntities();
                 Camera c = s.getCurrentCamera();
                 Ray r = c.getRay(x, y);
+                Intersection i = new Intersection(false);
+
                 for(IEntity entity : entityList) {
-                    Intersection i = entity.getIntersection(r);
-                    if(i.didHit()) {
-                        Color color = new Color(
-                                (int)(i.getU()*255),
-                                (int)(i.getV()*255),
-                                128
-                        );
-                        bi.setRGB(x, y, color.getRGB());
+                    Intersection tmp = entity.getIntersection(r);
+                    if(tmp.didHit()) {
+                        if(i.didHit()) {
+                            if(tmp.getT() < i.getT()) i = tmp;
+                        } else {
+                            i = tmp;
+                        }
                     }
+                }
+                if(i.didHit()) {
+                    float cosTheta =
+                            i.getNormal().dot(r.getDir())
+                            / i.getNormal().length()
+                            / r.getDir().length();
+                    if(cosTheta < 0) cosTheta *= -1;
+                    Color color = new Color(
+                            (int)(255 * cosTheta),
+                            0,
+                            0
+                    );
+                    bi.setRGB(x, y, color.getRGB());
                 }
             }
         }

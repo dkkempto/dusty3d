@@ -42,6 +42,10 @@ public class Intersection {
         return intersect;
     }
 
+    public Vector getNormal() {
+        return normal;
+    }
+
     public float getT() {
         return t;
     }

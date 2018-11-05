@@ -8,11 +8,6 @@ import com.dusty3d.math.Vector;
 public class Plane implements IEntity {
 
     @Override
-    public Vector getNormal(float u, float v) {
-        return new Vector();
-    }
-
-    @Override
     public void update() {
 
     }

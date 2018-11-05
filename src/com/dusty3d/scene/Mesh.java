@@ -10,17 +10,14 @@ import java.util.List;
 public class Mesh implements IEntity, IBound {
 
     private BoundingBox bb;
+    private KDNode kdTree;
 
     private List<Triangle> triangles;
 
     public Mesh(List<Triangle> triangles) {
         this.triangles = triangles;
         bb = new BoundingBox(triangles);
-    }
-
-    @Override
-    public Vector getNormal(float u, float v) {
-        return null;
+        kdTree = new KDNode(triangles);
     }
 
     @Override
@@ -60,7 +57,7 @@ public class Mesh implements IEntity, IBound {
 
     @Override
     public Intersection getIntersection(Ray r) {
-        return null;
+        return kdTree.getIntersection(r);
     }
 
 }

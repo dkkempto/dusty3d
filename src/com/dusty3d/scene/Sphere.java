@@ -27,13 +27,6 @@ public class Sphere implements IEntity {
     }
 
     @Override
-    public Vector getNormal(float u, float v) {
-        //TODO: Implement this. If I can figure out how to go from u,v to cartesian, it should be simple
-        //Just take the cartesian and subtract from the sphere's center, normalize it and that's your normal.
-        return new Vector();
-    }
-
-    @Override
     public void update() {
 //        rotate(new Rotation().rotateX(0.05f));
     }

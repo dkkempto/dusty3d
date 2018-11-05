@@ -3,6 +3,7 @@ package com.dusty3d.loader;
 import com.dusty3d.math.Intersection;
 import com.dusty3d.math.Vector;
 import com.dusty3d.scene.IEntity;
+import com.dusty3d.scene.Mesh;
 import com.dusty3d.scene.Triangle;
 
 import java.io.File;
@@ -15,6 +16,7 @@ public class ObjLoader extends LoaderBase {
 
     private List<Vector> vertices;
     private List<IEntity> triangles;
+    private List<Triangle> tris;
 
     public ObjLoader(File file) {
         super(file);
@@ -24,6 +26,7 @@ public class ObjLoader extends LoaderBase {
     public List<IEntity> load() {
         vertices = new ArrayList<>();
         triangles = new ArrayList<>();
+        tris = new ArrayList<>();
 
         try {
             Files.lines(file.toPath()).forEach(line -> {
@@ -43,7 +46,11 @@ public class ObjLoader extends LoaderBase {
         } catch(IOException e) {
 
         }
-        return triangles;
+        System.out.println(tris.size());
+        List<IEntity> res = new ArrayList<>();
+        res.add(new Mesh(tris));
+//        res.addAll(tris);
+        return res;
     }
 
     private void parseVertex(String[] tokens) {
@@ -62,7 +69,8 @@ public class ObjLoader extends LoaderBase {
             String[]  indices = tokens[i+1].split("/");
             tmp[i] = Integer.valueOf(indices[0]) - 1;  //OBJ files index starting at 1, so we account for it here
         }
-        triangles.add(new Triangle(
+
+        tris.add(new Triangle(
                 vertices.get(tmp[0]),
                 vertices.get(tmp[1]),
                 vertices.get(tmp[2])
